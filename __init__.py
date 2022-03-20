@@ -22,7 +22,7 @@ __copyright__ = "(c) 2022, Christopher Hosken"
 __license__ = "GPL v3"
 
 bl_info = {
-    "name" : "Discord Rich Presence",
+    "name" : "Blender Rich Presence",
     "author" : "Christopher Hosken",
     "description" : "",
     "blender" : (3, 1, 0),
