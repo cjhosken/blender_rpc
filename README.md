@@ -1,8 +1,8 @@
 # Blender Rich Presence
 
-Show off what you're working on in blender!
-
 Blender Rich Presence is an addon for Blender 3.1+ that lets you show off what you're doing in blender on your Discord profile.
+
+<br>
 
 ![Example](docs/presence_a.png)
 
