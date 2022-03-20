@@ -16,7 +16,7 @@ class BlenderRichPresence_Preferences(AddonPreferences):
         row = layout.row()
         row.prop(self, "hide_details")
         row = layout.row()
-        row.operator("wm.url_open", text="Report Bug", icon="URL").url = "http://www.google.co.uk"
+        row.operator("wm.url_open", text="Report Bug", icon="URL").url = "https://github.com/Christopher-Hosken/blender_rpc/issues"
 
 
 def get_user_preferences(context=None):
