@@ -1,5 +1,3 @@
-import bpy
-
 from threading import Thread
 
 from ..preferences import get_user_preferences

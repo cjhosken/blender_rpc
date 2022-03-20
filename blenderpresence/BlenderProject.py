@@ -1,6 +1,4 @@
-from cgitb import reset
-from enum import Enum
-import bpy, time, os
+import bpy, time
 from bpy.app.handlers import persistent
 
 class BlenderProject:
