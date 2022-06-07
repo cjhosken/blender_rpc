@@ -125,11 +125,11 @@ class BaseClient:
 
     async def handshake(self):
         if sys.platform == 'linux' or sys.platform == 'darwin':
-            self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
+            self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path)
         elif sys.platform == 'win32' or sys.platform == 'win64':
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
             reader_protocol = asyncio.StreamReaderProtocol(
-                self.sock_reader, loop=self.loop)
+                self.sock_reader)
             try:
                 self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
             except FileNotFoundError:
