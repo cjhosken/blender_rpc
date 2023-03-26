@@ -1,8 +1,8 @@
 from threading import Thread
 
 from ..preferences import get_user_preferences
-from ..presence import Presence
-from ..presence import exceptions
+from ..pypresence.pypresence import Presence
+from ..pypresence.pypresence import exceptions
 from .BlenderProject import BlenderProject
 
 
@@ -20,7 +20,7 @@ class BlenderPresence(Thread):
     def __init__(self, event) -> None:
         super().__init__()
         self._blender_project = BlenderProject()
-        self._client = Presence("954758491921321996")
+        self._client = Presence(get_user_preferences().client_id)
         self._stopped = event
 
     def start(self) -> None:

@@ -1,5 +1,5 @@
 #
-#    Copyright (C) 2022 Christopher Hosken
+#    Copyright (C) 2023 Christopher Hosken
 #    hoskenchristopher@gmail.com
 #
 #    Created by Christopher Hosken
@@ -18,14 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-__copyright__ = "(c) 2022, Christopher Hosken"
+__copyright__ = "(c) 2023, Christopher Hosken"
 __license__ = "GPL v3"
 
 bl_info = {
     "name" : "Blender Rich Presence",
     "author" : "Christopher Hosken",
     "description" : "",
-    "blender" : (3, 1, 0),
+    "blender" : (3, 4, 0),
     "version" : (1, 0, 0),
     "category" : "System"
 }
@@ -46,7 +46,7 @@ auto_load.init()
 
 STOP_FLAG = Event()
 
-presence = BlenderPresence(STOP_FLAG)
+presence = None
 
 @persistent
 def start_render_job_handler(arg):
@@ -77,22 +77,30 @@ def start_presence():
     presence.start()
 
 def register():
+    global presence
+
     import bpy
     from bpy.utils import register_class
 
     for cls in classes:
         register_class(cls)
 
+    presence = BlenderPresence(STOP_FLAG)
+
     bpy.app.timers.register(start_presence, first_interval=5, persistent=True)
 
     for handle in handlers:
         handle[0].append(handle[1])
 
+    bpy.context.preferences.use_preferences_save = True
+
+    start_presence()
+
 def unregister():
     import bpy
     from bpy.utils import unregister_class
 
-    if (presence.is_alive):
+    if (presence is not None and presence.is_alive()):
         presence.stop()
     
     if (bpy.app.timers.is_registered(start_presence)):
@@ -106,5 +114,8 @@ def unregister():
             handle[0].remove(handle[1])
 
 if __name__ == "__main__":
-    unregister()
-    register()
+    try:
+        register()
+    except ValueError:
+        unregister()
+        register()
